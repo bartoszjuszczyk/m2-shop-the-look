@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="juszczyk_shopthelook_look" resource="default" engine="innodb" comment="Juszczyk ShopTheLook Look">
+        <column name="look_id" xsi:type="int" nullable="false" unsigned="true" identity="true" comment="Look ID"/>
+        <column name="name" xsi:type="varchar" nullable="false" length="255" comment="Name"/>
+        <column name="description" xsi:type="text" nullable="true" comment="Description"/>
+        <column name="is_active" xsi:type="tinyint" nullable="false" unsigned="true" identity="false" default="0" comment="Is Active?"/>
+        <column name="created_at" xsi:type="timestamp" nullable="false" default="CURRENT_TIMESTAMP" on_update="false" comment="Created At"/>
+        <column name="updated_at" xsi:type="timestamp" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="look_id"/>
+        </constraint>
+    </table>
+    <table name="juszczyk_shopthelook_look_relation" resource="default" engine="innodb" comment="Juszczyk ShopTheLook Look Relation">
+        <column name="look_relation_id" xsi:type="int" unsigned="true" nullable="false" identity="true" comment="Look Relation ID"/>
+        <column name="look_id" xsi:type="int" unsigned="true" nullable="false" identity="false" comment="Look ID"/>
+        <column name="product_id" xsi:type="int" unsigned="true" nullable="false" identity="false" comment="Product ID"/>
+        <column name="position" xsi:type="int" unsigned="true" nullable="false" identity="false" comment="Position"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="look_relation_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="JUSZ_SHOP_LOOK_RELATION_LOOK_ID_JUSZ_SHOP_LOOK_LOOK_ID"
+                    table="juszczyk_shopthelook_look_relation" column="look_id" referenceTable="juszczyk_shopthelook_look"
+                    referenceColumn="look_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="JUSZ_SHOP_LOOK_RELATION_PRODUCT_ID_CAT_PROD_ENT_ENTITY_ID"
+                    table="juszczyk_shopthelook_look_relation" column="product_id" referenceTable="catalog_product_entity"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+    </table>
+    <table name="juszczyk_shopthelook_look_main_relation" resource="default" engine="innodb" comment="Juszczyk ShopTheLook Look Main Relation">
+        <column name="look_id" xsi:type="int" unsigned="true" nullable="false" identity="true" comment="Look ID"/>
+        <column name="product_id" xsi:type="int" unsigned="true" nullable="false" identity="true" comment="Product ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="look_id"/>
+            <column name="product_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="JUSZ_SHOP_LOOK_MAIN_RELATION_LOOK_ID_JUSZ_SHOP_LOOK_LOOK_ID"
+                    table="juszczyk_shopthelook_look_main_relation" column="look_id" referenceTable="juszczyk_shopthelook_look"
+                    referenceColumn="look_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="JUSZ_SHOP_LOOK_MAIN_RELATION_PRODUCT_ID_CAT_PROD_ENT_ENTITY_ID"
+                    table="juszczyk_shopthelook_look_main_relation" column="product_id" referenceTable="catalog_product_entity"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+    </table>
+</schema>
