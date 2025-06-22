@@ -1,0 +1,39 @@
+{
+    "juszczyk_shopthelook_look": {
+        "column": {
+            "look_id": true,
+            "name": true,
+            "description": true,
+            "is_active": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "juszczyk_shopthelook_look_relation": {
+        "column": {
+            "look_relation_id": true,
+            "look_id": true,
+            "product_id": true,
+            "position": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_C1DB9C01CA2BC224908FB26DBBC65945": true,
+            "JUSZCZYK_SHOPTHELOOK_LOOK_RELATION_PRD_ID_CAT_PRD_ENTT_ENTT_ID": true
+        }
+    },
+    "juszczyk_shopthelook_look_main_relation": {
+        "column": {
+            "look_id": true,
+            "product_id": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_B73B183B8E715CE9058A2642E53DBA8C": true,
+            "FK_53E5E7145AACE39CBBF7E91150009617": true
+        }
+    }
+}
