@@ -28,8 +28,8 @@
                     referenceColumn="entity_id" onDelete="CASCADE"/>
     </table>
     <table name="juszczyk_shopthelook_look_main_relation" resource="default" engine="innodb" comment="Juszczyk ShopTheLook Look Main Relation">
-        <column name="look_id" xsi:type="int" unsigned="true" nullable="false" identity="true" comment="Look ID"/>
-        <column name="product_id" xsi:type="int" unsigned="true" nullable="false" identity="true" comment="Product ID"/>
+        <column name="look_id" xsi:type="int" unsigned="true" nullable="false" identity="false" comment="Look ID"/>
+        <column name="product_id" xsi:type="int" unsigned="true" nullable="false" identity="false" comment="Product ID"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="look_id"/>
             <column name="product_id"/>
