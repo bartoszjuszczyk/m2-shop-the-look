@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Juszczyk\ShopTheLook\Api\Data\LookInterface" type="Juszczyk\ShopTheLook\Model\Look"/>
+    <preference for="Juszczyk\ShopTheLook\Api\Data\LookSearchResultsInterface" type="Juszczyk\ShopTheLook\Model\LookSearchResults"/>
+    <preference for="Juszczyk\ShopTheLook\Api\LookRepositoryInterface" type="Juszczyk\ShopTheLook\Model\LookRepository"/>
+</config>
