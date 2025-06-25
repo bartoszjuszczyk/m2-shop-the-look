@@ -19,13 +19,16 @@ use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\Framework\Api\AttributeValueFactory;
 use Magento\Framework\Api\ExtensionAttributesFactory;
 use Magento\Framework\Data\Collection\AbstractDb;
+use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Model\AbstractExtensibleModel;
 use Magento\Framework\Model\Context;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
 use Magento\Framework\Registry;
 
-class Look extends AbstractExtensibleModel implements LookInterface
+class Look extends AbstractExtensibleModel implements LookInterface, IdentityInterface
 {
+    public const string CACHE_TAG = 'j_s_l';
+
     /**
      * @param Context $context
      * @param Registry $registry
@@ -57,6 +60,22 @@ class Look extends AbstractExtensibleModel implements LookInterface
             $resourceCollection,
             $data
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _construct(): void
+    {
+        $this->_init(ResourceModel\Look::class);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getIdentities(): array
+    {
+        return [self::CACHE_TAG, self::CACHE_TAG . '_' . $this->getId()];
     }
 
     /**

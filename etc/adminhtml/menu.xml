@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Juszczyk_ShopTheLook::looks" resource="Juszczyk_ShopTheLook::looks" title="Shop The Look"
+             module="Juszczyk_ShopTheLook" sortOrder="900" parent="Magento_Catalog::catalog"/>
+        <add id="Juszczyk_ShopTheLook::manage_looks" resource="Juszczyk_ShopTheLook::looks" title="Manage Looks"
+             module="Juszczyk_ShopTheLook" sortOrder="10" parent="Juszczyk_ShopTheLook::looks" action="shopthelook/look/index"/>
+    </menu>
+</config>

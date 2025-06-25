@@ -18,4 +18,19 @@
         </arguments>
     </type>
 
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="juszczyk_shopthelook_look_listing_data_source" xsi:type="string">Juszczyk\ShopTheLook\Model\ResourceModel\Look\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Juszczyk\ShopTheLook\Model\ResourceModel\Look\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">juszczyk_shopthelook_look</argument>
+            <argument name="resourceModel" xsi:type="string">Juszczyk\ShopTheLook\Model\ResourceModel\Look</argument>
+        </arguments>
+    </virtualType>
 </config>
