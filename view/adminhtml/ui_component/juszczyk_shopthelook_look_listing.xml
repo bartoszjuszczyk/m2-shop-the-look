@@ -39,7 +39,19 @@
         <bookmark name="bookmarks"/>
         <columnsControls name="columns_controls"/>
         <filterSearch name="fulltext"/>
-        <filters name="listing_filters"/>
+        <filters name="listing_filters">
+            <filterSelect name="store_id" provider="${ $.parentName }">
+                <settings>
+                    <options class="Magento\Cms\Ui\Component\Listing\Column\Cms\Options"/>
+                    <caption translate="true">Select...</caption>
+                    <label translate="true">Store View</label>
+                    <dataScope>store_id</dataScope>
+                    <imports>
+                        <link name="visible">${ $.provider }:data.filters.placeholder</link>
+                    </imports>
+                </settings>
+            </filterSelect>
+        </filters>
         <massaction name="listing_massaction">
             <action name="delete">
                 <settings>
