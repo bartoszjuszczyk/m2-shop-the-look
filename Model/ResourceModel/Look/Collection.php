@@ -34,6 +34,31 @@ class Collection extends AbstractCollection
     /**
      * @inheritDoc
      */
+    protected function _initSelect(): void
+    {
+        parent::_initSelect();
+
+        $this->getSelect()->joinLeft(
+            ['store_table' => $this->getTable(self::LOOK_STORE_TABLE)],
+            'main_table.look_id = store_table.look_id',
+            []
+        )->group(
+            'main_table.look_id'
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _renderFiltersBefore(): void
+    {
+        $this->addFilterToMap('store_id', 'store_table.store_id');
+        parent::_renderFiltersBefore();
+    }
+
+    /**
+     * @inheritDoc
+     */
     protected function _afterLoad(): void
     {
         $this->attachStores();
