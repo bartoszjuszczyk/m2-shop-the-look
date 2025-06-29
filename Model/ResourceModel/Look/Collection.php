@@ -137,7 +137,7 @@ class Collection extends AbstractCollection
 
         $storesData = [];
         foreach ($result as $row) {
-            $storesData[(int) $row['look_id']][] = (int) $row['store_id'];
+            $storesData[(int) $row['look_id']][] = $row['store_id'];
         }
 
         foreach ($this as $item) {

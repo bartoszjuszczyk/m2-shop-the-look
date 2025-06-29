@@ -15,10 +15,11 @@ use Magento\Framework\Api\ExtensibleDataInterface;
 
 interface LookInterface extends ExtensibleDataInterface
 {
-    public const LOOK_ID = 'look_id';
-    public const NAME = 'name';
-    public const DESCRIPTION = 'description';
-    public const IS_ACTIVE = 'is_active';
+    public const string LOOK_ID = 'look_id';
+    public const string NAME = 'name';
+    public const string DESCRIPTION = 'description';
+    public const string IS_ACTIVE = 'is_active';
+    public const string STORE_IDS = 'store_ids';
 
     /**
      * Get Look ID.
@@ -79,4 +80,19 @@ interface LookInterface extends ExtensibleDataInterface
      * @return self
      */
     public function setActive(bool $active): self;
+
+    /**
+     * Get Store Ids.
+     *
+     * @return array
+     */
+    public function getStoreIds(): array;
+
+    /**
+     * Set Store Ids.
+     *
+     * @param array $storeIds
+     * @return self
+     */
+    public function setStoreIds(array $storeIds): self;
 }

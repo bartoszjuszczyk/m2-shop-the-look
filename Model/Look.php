@@ -143,6 +143,22 @@ class Look extends AbstractExtensibleModel implements LookInterface, IdentityInt
     }
 
     /**
+     * @inheritDoc
+     */
+    public function getStoreIds(): array
+    {
+        return $this->getData('store_id');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setStoreIds(array $storeIds): LookInterface
+    {
+        return $this->setData('store_id', $storeIds);
+    }
+
+    /**
      * Get main product for look.
      *
      * @return ProductInterface|null
