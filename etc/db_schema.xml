@@ -12,6 +12,20 @@
             <column name="look_id"/>
         </constraint>
     </table>
+    <table name="juszczyk_shopthelook_look_store" resource="default" engine="innodb" comment="Juszczyk ShopTheLook Look Store">
+        <column name="look_id" xsi:type="int" nullable="false" unsigned="true" comment="Look ID"/>
+        <column name="store_id" xsi:type="smallint" nullable="false" unsigned="true" comment="Store ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="look_id"/>
+            <column name="store_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="JUSZCZYK_SHOPTHELOOK_LOOK_STORE_LOOK_ID_JUSZCZYK_SHOPTHELOOK_LOOK_LOOK_ID"
+                    table="juszczyk_shopthelook_look_store" column="look_id" referenceTable="juszczyk_shopthelook_look"
+                    referenceColumn="look_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="JUSZCZYK_SHOPTHELOOK_LOOK_STORE_STORE_ID_STORE_STORE_ID"
+                    table="juszczyk_shopthelook_look_store" column="store_id" referenceTable="store"
+                    referenceColumn="store_id" onDelete="CASCADE"/>
+    </table>
     <table name="juszczyk_shopthelook_look_relation" resource="default" engine="innodb" comment="Juszczyk ShopTheLook Look Relation">
         <column name="look_relation_id" xsi:type="int" unsigned="true" nullable="false" identity="true" comment="Look Relation ID"/>
         <column name="look_id" xsi:type="int" unsigned="true" nullable="false" identity="false" comment="Look ID"/>

@@ -83,7 +83,7 @@ class Look extends AbstractExtensibleModel implements LookInterface, IdentityInt
      */
     public function getLookId(): int
     {
-        return $this->getData(self::LOOK_ID);
+        return (int) $this->getData(self::LOOK_ID);
     }
 
     /**
