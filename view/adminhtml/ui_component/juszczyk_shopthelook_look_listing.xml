@@ -63,7 +63,7 @@
             </settings>
         </selectionsColumn>
 
-        <column name="look_id">
+        <column name="look_id" sortOrder="10">
             <settings>
                 <filter>textRange</filter>
                 <label translate="true">ID</label>
@@ -71,14 +71,14 @@
             </settings>
         </column>
 
-        <column name="name">
+        <column name="name" sortOrder="20">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Name</label>
             </settings>
         </column>
 
-        <column name="is_active" component="Magento_Ui/js/grid/columns/select">
+        <column name="is_active" component="Magento_Ui/js/grid/columns/select" sortOrder="30">
             <settings>
                 <options class="Magento\Config\Model\Config\Source\Yesno"/>
                 <filter>select</filter>
@@ -87,7 +87,15 @@
             </settings>
         </column>
 
-        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date">
+        <column name="store_id" class="Magento\Store\Ui\Component\Listing\Column\Store" sortOrder="40">
+            <settings>
+                <label translate="true">Store View</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+
+        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date" sortOrder="50">
             <settings>
                 <filter>dateRange</filter>
                 <dataType>date</dataType>
@@ -95,7 +103,7 @@
             </settings>
         </column>
 
-        <column name="updated_at" class="Magento\Ui\Component\Listing\Columns\Date">
+        <column name="updated_at" class="Magento\Ui\Component\Listing\Columns\Date" sortOrder="60">
             <settings>
                 <filter>dateRange</filter>
                 <dataType>date</dataType>
@@ -103,7 +111,7 @@
             </settings>
         </column>
 
-        <actionsColumn name="actions" class="Juszczyk\ShopTheLook\Ui\Component\Listing\Column\LookActions">
+        <actionsColumn name="actions" class="Juszczyk\ShopTheLook\Ui\Component\Listing\Column\LookActions" sortOrder="70">
             <settings>
                 <indexField>look_id</indexField>
                 <label translate="true">Actions</label>
