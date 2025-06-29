@@ -41,7 +41,7 @@ class LookActions extends Column
     {
         return [
             'href' => $this->context->getUrl(
-                'store_locator/store/edit',
+                'shopthelook/look/edit',
                 ['look_id' => $item['look_id']]
             ),
             'label' => __('Edit')->render()
