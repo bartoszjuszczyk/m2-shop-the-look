@@ -18,6 +18,11 @@ class Collection extends AbstractCollection
 {
     private const string LOOK_STORE_TABLE = 'juszczyk_shopthelook_look_store';
 
+    private const string STORES_RELATION_JOINED_FLAG = 'stores_relation_joined';
+
+    /**
+     * @var string
+     */
     protected $_idFieldName = 'look_id';
 
     /**
@@ -29,15 +34,16 @@ class Collection extends AbstractCollection
             \Juszczyk\ShopTheLook\Model\Look::class,
             Look::class
         );
+        $this->addFilterToMap('look_id', 'main_table.look_id');
     }
 
     /**
-     * @inheritDoc
+     * Join stores relation.
+     *
+     * @return void
      */
-    protected function _initSelect(): void
+    protected function joinStoresRelation(): void
     {
-        parent::_initSelect();
-
         $this->getSelect()->joinLeft(
             ['store_table' => $this->getTable(self::LOOK_STORE_TABLE)],
             'main_table.look_id = store_table.look_id',
@@ -45,6 +51,8 @@ class Collection extends AbstractCollection
         )->group(
             'main_table.look_id'
         );
+
+        $this->setFlag(self::STORES_RELATION_JOINED_FLAG, true);
     }
 
     /**
@@ -52,6 +60,10 @@ class Collection extends AbstractCollection
      */
     protected function _renderFiltersBefore(): void
     {
+        if ($this->getFlag(self::STORES_RELATION_JOINED_FLAG)) {
+            return;
+        }
+        $this->joinStoresRelation();
         $this->addFilterToMap('store_id', 'store_table.store_id');
         parent::_renderFiltersBefore();
     }
@@ -90,13 +102,13 @@ class Collection extends AbstractCollection
 
             $this->getSelect()->join(
                 ['store_table' => $linkTable],
-                'main_table.entity_id = store_table.entity_id',
+                'main_table.look_id = store_table.look_id',
                 []
             )->where(
                 'store_table.store_id IN (?)',
                 $store
             )->group(
-                'main_table.entity_id'
+                'main_table.look_id'
             );
         }
         return $this;
@@ -119,13 +131,13 @@ class Collection extends AbstractCollection
         $linkTable = $connection->getTableName(self::LOOK_STORE_TABLE);
 
         $select = $connection->select()
-            ->from($linkTable, ['entity_id', 'store_id'])
-            ->where('entity_id IN (?)', $entityIds);
+            ->from($linkTable, ['look_id', 'store_id'])
+            ->where('look_id IN (?)', $entityIds);
         $result = $connection->fetchAll($select);
 
         $storesData = [];
         foreach ($result as $row) {
-            $storesData[(int) $row['entity_id']][] = (int) $row['store_id'];
+            $storesData[(int) $row['look_id']][] = (int) $row['store_id'];
         }
 
         foreach ($this as $item) {
