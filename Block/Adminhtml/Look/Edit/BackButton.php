@@ -18,6 +18,19 @@ class BackButton extends GenericButton implements ButtonProviderInterface
      */
     public function getButtonData()
     {
-        // TODO: Implement getButtonData() method.
+        return [
+            'label' => __('Back'),
+            'on_click' => sprintf("location.href = '%s';", $this->getBackUrl()),
+            'class' => 'back',
+            'sort_order' => 10
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    protected function getBackUrl(): string
+    {
+        return $this->getUrl('*/*/');
     }
 }
