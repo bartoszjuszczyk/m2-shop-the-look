@@ -18,18 +18,28 @@ use Juszczyk\ShopTheLook\Model\ResourceModel\Look as LookResource;
 use Juszczyk\ShopTheLook\Model\ResourceModel\Look\CollectionFactory as LookCollectionFactory;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 
 class LookRepository implements LookRepositoryInterface
 {
+    /**
+     * @param LookResource $lookResource
+     * @param LookFactory $lookFactory
+     * @param LookCollectionFactory $lookCollectionFactory
+     * @param LookSearchResultsInterface $lookSearchResultsFactory
+     * @param CollectionProcessorInterface $collectionProcessor
+     * @param ResourceConnection $resourceConnection
+     */
     public function __construct(
         protected readonly LookResource $lookResource,
         protected readonly LookFactory $lookFactory,
         protected readonly LookCollectionFactory $lookCollectionFactory,
         protected readonly LookSearchResultsInterface $lookSearchResultsFactory,
-        protected readonly CollectionProcessorInterface $collectionProcessor
+        protected readonly CollectionProcessorInterface $collectionProcessor,
+        protected readonly ResourceConnection $resourceConnection
     ) {
     }
 
@@ -69,6 +79,7 @@ class LookRepository implements LookRepositoryInterface
     {
         try {
             $this->lookResource->save($look);
+            $this->updateStoresRelation($look);
         } catch (Exception $e) {
             throw new CouldNotSaveException(__('Could not save look: %1', $e->getMessage()));
         }
@@ -94,5 +105,32 @@ class LookRepository implements LookRepositoryInterface
     public function deleteById(int $id): bool
     {
         return $this->delete($this->getById($id));
+    }
+
+    /**
+     * Update stores relation.
+     *
+     * @param LookInterface $look
+     * @return void
+     */
+    protected function updateStoresRelation(LookInterface $look): void
+    {
+        $connection = $this->resourceConnection->getConnection();
+        $relationTable = $connection->getTableName('juszczyk_shopthelook_look_store');
+        $lookId = $look->getId();
+        $storeIds = $look->getStoreIds() ?: [];
+
+        $connection->delete($relationTable, ['look_id = ?' => $lookId]);
+
+        if (!empty($storeIds)) {
+            $dataToInsert = [];
+            foreach ($storeIds as $storeId) {
+                $dataToInsert[] = [
+                    'look_id' => $lookId,
+                    'store_id' => (int)$storeId,
+                ];
+            }
+            $connection->insertMultiple($relationTable, $dataToInsert);
+        }
     }
 }
