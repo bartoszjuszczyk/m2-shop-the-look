@@ -35,5 +35,16 @@
             "FK_B73B183B8E715CE9058A2642E53DBA8C": true,
             "FK_53E5E7145AACE39CBBF7E91150009617": true
         }
+    },
+    "juszczyk_shopthelook_look_store": {
+        "column": {
+            "look_id": true,
+            "store_id": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_11FC922477A19E68C6DB77EFCD0E3341": true,
+            "JUSZCZYK_SHOPTHELOOK_LOOK_STORE_STORE_ID_STORE_STORE_ID": true
+        }
     }
 }
